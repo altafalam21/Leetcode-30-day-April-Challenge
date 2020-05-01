@@ -1,0 +1,52 @@
+Given an array of strings, group anagrams together.
+
+Example:
+
+Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+Output:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+Note:
+
+All inputs will be in lowercase.
+The order of your output does not matter.
+
+My C++ solution : 
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<vector<string > > v;
+        vector<string > k;
+        vector<string> temp;
+        string t,st;
+        t = strs[0];
+        k.push_back(t);
+        v.push_back(k);
+        sort(t.begin(),t.end());
+        temp.push_back(t);
+        vector<string>::iterator it;
+        for(int i=1;i<strs.size();i++)
+        {
+            st = strs[i];
+            t = st;
+            k.clear();
+            sort(t.begin(),t.end());
+            it = find(temp.begin(),temp.end(),t);
+            if(it!=temp.end()) 
+            {
+                v[it-temp.begin()].push_back(st);
+            }
+            else
+            {
+                k.push_back(st);
+                temp.push_back(t);
+                v.push_back(k);
+            }
+                
+        }
+            return v;
+    }
+};
